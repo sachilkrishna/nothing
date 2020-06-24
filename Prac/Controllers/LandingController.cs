@@ -16,5 +16,19 @@ namespace Prac.Controllers
             user=Session["ActiveUser"] as User;
             return View(user);
         }
+
+        [Authorize(Roles ="Admin")]
+        public ActionResult AdminLandingPage()
+        {
+            return View();
+        }
+
+        public JsonResult GetUsersDetails()
+        {
+            UserManager um = new UserManager();
+            List<User> LstU = um.GetAllUsers();
+
+            return Json(LstU, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -149,5 +149,47 @@ namespace Prac.Models
 
             return c;
         }
+
+        public List<User> GetAllUsers()
+        {
+            List<User> LstU = new List<User>();
+            User user=null;
+            using (SqlConnection cn = new SqlConnection("data source= ADMIN-PC\\SQLEXPRESS; initial catalog= something; integrated security=sspi "))
+            {
+                using (SqlCommand cmd = new SqlCommand("get_all_users", cn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    try
+                    {
+                        cn.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            user = new User();
+                            user.FirstName = Convert.ToString(dr["fname"]);
+                            user.LastName = Convert.ToString(dr["lname"]);
+                            user.EmailId = Convert.ToString(dr["email_id"]);
+                            user.UserType = Convert.ToString(dr["user_type_name"]);
+                            LstU.Add(user);
+                        }
+                    }
+                    catch (SqlException)
+                    {
+
+                        throw;
+                    }
+                    finally
+                    {
+                        if (cn.State == System.Data.ConnectionState.Open)
+                        {
+                            cn.Close();
+                        }
+                    }
+                }
+            }
+
+            return LstU;
+        }
     }
 }

@@ -7,8 +7,9 @@
 
 <div class="container">
     <h2>UserLandingPage</h2>
-    <div class="align-content-xl-end">
-        @Html.ActionLink("Sign Out", "SignOut","Login",new { }, new { })
+    <div>
+        @Html.ActionLink("Front Page", "Index", "Home", new { }, new { @class = "float-xl-none" })
+        @Html.ActionLink("Sign Out", "SignOut", "Login", new { }, new { @class = "float-xl-right" })
     </div>
     <div class="jumbotron" style="background-color:white">
 

@@ -27,6 +27,7 @@ set @user_type_id=1
 insert into users (fname , lname, email_id , password , user_type_id ) values(@fname , @lname, @email_id , @password , @user_type_id)
 end
 
+
 create proc get_user
 (@email_id varchar(max)
 )
@@ -35,6 +36,13 @@ begin
 select fname,lname,email_id,password,user_type_name from users u join user_type ut on ut.user_type_id=u.user_type_id where email_id=@email_id
 end
 
+create proc get_all_users
+as
+begin
+select fname,lname,email_id,user_type_name from users u join user_type ut on ut.user_type_id=u.user_type_id 
+end
+
+exec get_all_users
 
 create proc verify_user
 (@email_id varchar(max), @password varchar(max))
