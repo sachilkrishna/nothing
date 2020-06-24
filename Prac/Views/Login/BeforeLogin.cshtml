@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "BeforeLogin";
+}
+
+
+
+<div class="d-flex align-content-center min-vh-100">
+
+    <div class="container   box1">
+        <h2>Before Proceeding</h2>
+        <div class="container   box1">
+            <h5>Do you Know me ?</h5>
+        </div>
+        <div class="container   box1">
+            <h1 class="font-weight-bolder"> [</h1>
+            <h5 class="btn btn-outline-dark" onclick="myfunction()">Yes</h5>
+            <h5>/</h5>
+            <h5 class="btn btn-dark btn-outline-light font-weight-bold" onclick="myfunction2()">No</h5>
+            <h1 class="font-weight-bolder"> ]</h1>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    function myfunction() {
+        if (confirm('You Sure ?')) {
+            window.location.href='../Login/SignIn'
+        } else {
+            alert('Why did you press cancel? You should have confirmed');
+            window.location.href='../Login/SignUp'
+        }
+    }
+
+    function myfunction2() {
+        window.location.href = '../Login/SignUp'
+    }
+
+</script>
