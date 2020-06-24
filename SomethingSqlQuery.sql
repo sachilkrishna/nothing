@@ -1,4 +1,4 @@
-ADMIN-PC\SQLEXPRESS
+--ADMIN-PC\SQLEXPRESS
 
 --create database something
 use something
@@ -27,3 +27,47 @@ set @user_type_id=1
 insert into users (fname , lname, email_id , password , user_type_id ) values(@fname , @lname, @email_id , @password , @user_type_id)
 end
 
+create proc get_user
+(@email_id varchar(max)
+)
+as
+begin
+select fname,lname,email_id,password,user_type_name from users u join user_type ut on ut.user_type_id=u.user_type_id where email_id=@email_id
+end
+
+
+create proc verify_user
+(@email_id varchar(max), @password varchar(max))
+as
+begin
+if exists(select fname from users where email_id =@email_id and password=@password)
+--begin
+	select 1
+--end
+else
+--begin
+	select 0
+--end
+end
+exec verify_user 'sachilkrishna@gmail.com', '123456'
+
+
+create proc verify_email_id
+(@email_id varchar(max))
+as
+begin
+if exists(select fname from users where email_id =@email_id )
+--begin
+	select 1
+--end
+else
+--begin
+	select 0
+--end
+end
+exec verify_email_id 'sachilkrishna@gmail.com'
+
+select * from user_type
+select * from users
+
+select user_type_name from users u join user_type ut on ut.user_type_id=u.user_type_id

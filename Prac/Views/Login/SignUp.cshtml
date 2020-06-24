@@ -1,4 +1,4 @@
-﻿@*@model Prac.Models.User*@
+﻿@model Prac.Models.User
 
 
 @{
@@ -16,37 +16,44 @@
         <H1>SignUp</H1>
     </div>
     <div class="d-flex justify-content-lg-start box1 min-vh-100 col-5 form-group">
-        <form action="SignUp" method="post" id="SignUpForm">
+        @*<form action="SignUp" method="post" id="SignUpForm">*@
+            @using (Html.BeginForm("SignUp","Login",new { ReturnUrl=ViewBag.ReturnUrl},FormMethod.Post, htmlAttributes : new { @id= "SignUpForm", @name= "SignUpForm" }))
+            {
+                <div class="form-group ">
+                    <div class="font-weight-bold">  @Html.LabelFor(model => model.FirstName)</div>
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control " })
+                </div>
 
-            <div class="form-group">
-                <label class="font-weight-bold"> First Name </label>
-                <input class="form-control d-xl-table-cell" required type="text" name="fname" value="" id="fname" />
-            </div>
-            <div class="form-group ">
-                <label class="font-weight-bold"> Last Name </label>
-                <input class="form-control" type="text" name="lname" required value="" id="lname" />
-            </div>
+                <div class="form-group ">
+                    <div class="font-weight-bold">  @Html.LabelFor(model => model.LastName)</div>
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control " })
 
-            <div class="form-group ">
-                <label class="font-weight-bold"> Email id </label>
-                <input class="form-control" type="email" name="emailId" required value="" id="emailId" />
-            </div>
+                </div>
 
-            <div class="form-group ">
-                <label class="font-weight-bold"> Password </label>
-                <input class="form-control" type="password" name="password" value="" id="password" />
-            </div>
+                <div class="form-group ">
+                    <div class="font-weight-bold">  @Html.DisplayNameFor(model => model.EmailId)</div>
+                    @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control " })
 
-            <div class="form-group ">
-                <label class="font-weight-bold"> Confirm Password </label>
-                <input class="form-control" type="password" name="cfmPassword" value="" id="cfmPassword" />
-            </div>
+                    <span class="text-danger">@ViewBag.EmailAlert</span>
+                </div>
+
+                <div class="form-group ">
+                    <div class="font-weight-bold">  @Html.DisplayNameFor(model => model.Password)</div>
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control ", @type = "password" })
+
+                </div>
+                <div class="form-group ">
+                    <label class="font-weight-bold"> Confirm Password </label>
+                    <input class="form-control" type="password" name="cfmPassword" value="" id="cfmPassword" />
+                </div>
 
 
-            <div class="form-group ">
-                <input class="form-control btn btn-dark" type="submit" name="submit" value="Submit" />
-            </div>
-        </form>
+                <div class="form-group ">
+                    <input class="form-control btn btn-dark" type="submit" name="submit" value="Submit" />
+                </div>
+            }
+
+        @*</form>*@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -55,7 +62,16 @@
 
     $("#SignUpForm").validate({
         rules: {
-            password: {
+            FirstName: {
+                required:true
+            },
+            LastName: {
+                required: true
+            },
+            EmailId: {
+                required: true
+            },
+            Password: {
                 required: true,
                 minlength: 6,
                 maxlength: 10,
@@ -63,7 +79,7 @@
             },
 
             cfmPassword: {
-                equalTo: "#password",
+                equalTo: "#Password",
                 minlength: 6,
                 maxlength: 10
             }
@@ -71,7 +87,16 @@
 
         },
         messages: {
-            password: {
+            FirstName: {
+                required: "Enter First Name"
+            },
+            LastName: {
+                required: "Enter last Name"
+            },
+            EmailId: {
+                required: "Bitch!, Enter the emailId"
+            },
+            Password: {
                 required: "the password is required"
 
             }
@@ -79,5 +104,9 @@
 
     });
 </script>
-
+<style>
+    form .error {
+        color: red;
+    }
+</style>
 

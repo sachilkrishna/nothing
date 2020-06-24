@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prac.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,11 @@ namespace Prac.Controllers
     public class LandingController : Controller
     {
         // GET: Landing
-        public ActionResult UserLandingPage()
+        [Authorize(Roles ="Normal")]
+        public ActionResult UserLandingPage(User user)
         {
-            return View();
+            user=Session["ActiveUser"] as User;
+            return View(user);
         }
     }
 }
